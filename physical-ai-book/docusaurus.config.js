@@ -12,15 +12,15 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://username.github.io',
+  url: 'https://ABUBAKAR-SIDDIQUE2.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub Pages deployment, it is often '/<projectName>/'
-  baseUrl: '/physical-ai-book/',
+  baseUrl: '/Physical-AI-and-Humanoid-Robotics-Course/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'username', // Usually your GitHub org/user name.
-  projectName: 'physical-ai-book', // Usually your repo name.
+  organizationName: 'ABUBAKAR-SIDDIQUE2', // Usually your GitHub org/user name.
+  projectName: 'Physical-AI-and-Humanoid-Robotics-Course', // Usually your repo name.
   trailingSlash: false,
 
   onBrokenLinks: 'warn', // Temporarily setting to warn to allow build, but aiming for throw in production
@@ -78,7 +78,7 @@ const config = {
             label: 'Textbook',
           },
           {
-            href: 'https://github.com/username/physical-ai-book',
+            href: 'https://github.com/ABUBAKAR-SIDDIQUE2/Physical-AI-and-Humanoid-Robotics-Course',
             label: 'GitHub',
             position: 'right',
           },
