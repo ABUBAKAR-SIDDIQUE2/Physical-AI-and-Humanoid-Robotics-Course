@@ -25,11 +25,11 @@ description: "Task list for Feature 002-rag-chatbot"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create backend project structure and venv script in `chatbot-backend/`
-- [ ] T002 Initialize `pyproject.toml` and `requirements.txt` (FastAPI, Qdrant, Neon, etc) in `chatbot-backend/`
-- [ ] T003 [P] Create `.env.example` with placeholders for API keys in `chatbot-backend/.env.example`
-- [ ] T004 [P] Create `Dockerfile` and `docker-compose.yml` for local dev in `chatbot-backend/`
-- [ ] T005 [P] Create local dev script (`Makefile` or `dev.sh`) in `chatbot-backend/`
+- [x] T001 Create backend project structure and venv script in `chatbot-backend/`
+- [x] T002 Initialize `pyproject.toml` and `requirements.txt` (FastAPI, Qdrant, Neon, etc) in `chatbot-backend/`
+- [x] T003 [P] Create `.env.example` with placeholders for API keys in `chatbot-backend/.env.example`
+- [x] T004 [P] Create `Dockerfile` and `docker-compose.yml` for local dev in `chatbot-backend/`
+- [x] T005 [P] Create local dev script (`Makefile` or `dev.sh`) in `chatbot-backend/`
 
 ---
 
@@ -39,14 +39,14 @@ description: "Task list for Feature 002-rag-chatbot"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Set up Qdrant connection and collection initialization in `chatbot-backend/app/db/qdrant.py` (FR-003)
-- [ ] T007 Set up Neon DB connection and SQLAlchemy/AsyncPG setup in `chatbot-backend/app/db/postgres.py` (FR-004)
-- [ ] T008 Create ingestion script skeleton `chatbot-backend/ingest.py` (FR-005)
-- [ ] T009 Implement text chunking and cleaning logic in `chatbot-backend/app/services/ingestion.py` (FR-005)
-- [ ] T010 Implement embedding generation using ADK/OpenAI in `chatbot-backend/app/services/embeddings.py` (FR-002)
-- [ ] T011 Update `ingest.py` to upsert vectors to Qdrant with metadata (FR-005)
-- [ ] T012 Verify ingestion by running script against `physical-ai-book/docs/` (NFR-005)
-- [ ] T013 Create FastAPI application entry point in `chatbot-backend/app/main.py` (FR-001)
+- [x] T006 Set up Qdrant connection and collection initialization in `chatbot-backend/app/db/qdrant.py` (FR-003)
+- [x] T007 Set up Neon DB connection and SQLAlchemy/AsyncPG setup in `chatbot-backend/app/db/postgres.py` (FR-004)
+- [x] T008 Create ingestion script skeleton `chatbot-backend/ingest.py` (FR-005)
+- [x] T009 Implement text chunking and cleaning logic in `chatbot-backend/app/services/ingestion.py` (FR-005)
+- [x] T010 Implement embedding generation using ADK/OpenAI in `chatbot-backend/app/services/embeddings.py` (FR-002)
+- [x] T011 Update `ingest.py` to upsert vectors to Qdrant with metadata (FR-005)
+- [x] T012 Verify ingestion by running script against `physical-ai-book/docs/` (NFR-005)
+- [x] T013 Create FastAPI application entry point in `chatbot-backend/app/main.py` (FR-001)
 
 **Checkpoint**: Foundation ready - Ingestion works, DBs connected, App starts.
 
@@ -60,12 +60,12 @@ description: "Task list for Feature 002-rag-chatbot"
 
 ### Implementation for User Story 1
 
-- [ ] T014 [US1] Create RAG orchestrator service in `chatbot-backend/app/services/rag_engine.py` (FR-002)
-- [ ] T015 [US1] Implement retrieval logic (query embedding + Qdrant search) in `chatbot-backend/app/services/rag_engine.py` (FR-003)
-- [ ] T016 [US1] Implement LLM generation with context assembly in `chatbot-backend/app/services/rag_engine.py` (FR-002)
-- [ ] T017 [US1] Create `POST /api/query` endpoint in `chatbot-backend/app/routers/chat.py` (FR-001)
-- [ ] T018 [P] [US1] Add unit tests for RAG pipeline in `chatbot-backend/tests/test_rag.py` (NFR-005)
-- [ ] T019 [US1] Verify `POST /api/query` returns source citations (FR-009)
+- [x] T014 [US1] Create RAG orchestrator service in `chatbot-backend/app/services/rag_engine.py` (FR-002)
+- [x] T015 [US1] Implement retrieval logic (query embedding + Qdrant search) in `chatbot-backend/app/services/rag_engine.py` (FR-003)
+- [x] T016 [US1] Implement LLM generation with context assembly in `chatbot-backend/app/services/rag_engine.py` (FR-002)
+- [x] T017 [US1] Create `POST /api/query` endpoint in `chatbot-backend/app/routers/chat.py` (FR-001)
+- [x] T018 [P] [US1] Add unit tests for RAG pipeline in `chatbot-backend/tests/test_rag.py` (NFR-005)
+- [x] T019 [US1] Verify `POST /api/query` returns source citations (FR-009)
 
 **Checkpoint**: Backend RAG is fully functional via API.
 
@@ -79,10 +79,10 @@ description: "Task list for Feature 002-rag-chatbot"
 
 ### Implementation for User Story 2
 
-- [ ] T020 [US2] Update `RagEngine` to handle `selected_text` context in `chatbot-backend/app/services/rag_engine.py` (FR-006)
-- [ ] T021 [US2] Implement prompt template for selected-text mode in `chatbot-backend/app/prompts.py` (FR-006)
-- [ ] T022 [US2] Create `POST /api/select-query` endpoint in `chatbot-backend/app/routers/chat.py` (FR-001)
-- [ ] T023 [P] [US2] Add unit tests for selected-text mode in `chatbot-backend/tests/test_selection.py`
+- [x] T020 [US2] Update `RagEngine` to handle `selected_text` context in `chatbot-backend/app/services/rag_engine.py` (FR-006)
+- [x] T021 [US2] Implement prompt template for selected-text mode in `chatbot-backend/app/prompts.py` (FR-006)
+- [x] T022 [US2] Create `POST /api/select-query` endpoint in `chatbot-backend/app/routers/chat.py` (FR-001)
+- [x] T023 [P] [US2] Add unit tests for selected-text mode in `chatbot-backend/tests/test_selection.py`
 
 **Checkpoint**: Backend supports both general and specific queries.
 
@@ -96,10 +96,10 @@ description: "Task list for Feature 002-rag-chatbot"
 
 ### Implementation for User Story 3
 
-- [ ] T024 [US3] Create DB models for `Session` and `Message` in `chatbot-backend/app/models.py` (FR-004)
-- [ ] T025 [US3] Create Alembic migration script for schema in `chatbot-backend/alembic/` (FR-004)
-- [ ] T026 [US3] Update `POST /api/query` to save messages to Neon in `chatbot-backend/app/routers/chat.py` (FR-004)
-- [ ] T027 [US3] Create `GET /api/session/{id}` endpoint in `chatbot-backend/app/routers/session.py` (FR-001)
+- [x] T024 [US3] Create DB models for `Session` and `Message` in `chatbot-backend/app/models.py` (FR-004)
+- [x] T025 [US3] Create Alembic migration script for schema in `chatbot-backend/alembic/` (FR-004)
+- [x] T026 [US3] Update `POST /api/query` to save messages to Neon in `chatbot-backend/app/routers/chat.py` (FR-004)
+- [x] T027 [US3] Create `GET /api/session/{id}` endpoint in `chatbot-backend/app/routers/session.py` (FR-001)
 
 **Checkpoint**: Backend now has persistent memory.
 
@@ -113,13 +113,13 @@ description: "Task list for Feature 002-rag-chatbot"
 
 ### Implementation for User Stories 4 & 5
 
-- [ ] T028 [US4] Create React component structure `physical-ai-book/src/components/ChatWidget/` (FR-007)
-- [ ] T029 [US4] Implement floating button UI in `physical-ai-book/src/components/ChatWidget/index.tsx` (FR-007)
-- [ ] T030 [US4] Implement chat panel UI (input, messages) in `physical-ai-book/src/components/ChatWidget/ChatPanel.tsx`
-- [ ] T031 [US2] Implement `selectionchange` listener hook in `physical-ai-book/src/components/ChatWidget/useSelection.ts` (FR-006)
-- [ ] T032 [US5] Implement API client service in `physical-ai-book/src/services/api.ts`
-- [ ] T033 [US5] Configure CORS in `chatbot-backend/app/main.py` (FR-008)
-- [ ] T034 [US4] Integrate Widget into Docusaurus Layout or Root in `physical-ai-book/src/theme/Root.js`
+- [x] T028 [US4] Create React component structure `physical-ai-book/src/components/ChatWidget/` (FR-007)
+- [x] T029 [US4] Implement floating button UI in `physical-ai-book/src/components/ChatWidget/index.tsx` (FR-007)
+- [x] T030 [US4] Implement chat panel UI (input, messages) in `physical-ai-book/src/components/ChatWidget/ChatPanel.tsx`
+- [x] T031 [US2] Implement `selectionchange` listener hook in `physical-ai-book/src/components/ChatWidget/useSelection.ts` (FR-006)
+- [x] T032 [US5] Implement API client service in `physical-ai-book/src/services/api.ts`
+- [x] T033 [US5] Configure CORS in `chatbot-backend/app/main.py` (FR-008)
+- [x] T034 [US4] Integrate Widget into Docusaurus Layout or Root in `physical-ai-book/src/theme/Root.js`
 
 **Checkpoint**: Full end-to-end feature complete locally.
 
@@ -129,9 +129,9 @@ description: "Task list for Feature 002-rag-chatbot"
 
 **Purpose**: Production readiness
 
-- [ ] T035 [P] Create GitHub Actions for Backend CI in `.github/workflows/backend-ci.yml`
-- [ ] T036 [P] Create Backend Deploy workflow in `.github/workflows/backend-deploy.yml`
-- [ ] T037 Add roll-back instructions for ingestion to `specs/002-rag-chatbot/plan.md` (NFR-004)
+- [x] T035 [P] Create GitHub Actions for Backend CI in `.github/workflows/backend-ci.yml`
+- [x] T036 [P] Create Backend Deploy workflow in `.github/workflows/backend-deploy.yml`
+- [x] T037 Add roll-back instructions for ingestion to `specs/002-rag-chatbot/plan.md` (NFR-004)
 - [ ] T038 Verify 5-second latency requirement (NFR-001)
 
 ---

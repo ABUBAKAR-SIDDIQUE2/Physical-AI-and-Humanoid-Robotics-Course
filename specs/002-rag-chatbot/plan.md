@@ -77,24 +77,40 @@
 - CI/CD: `ci/test-backend.yml`, `deploy/backend-deploy.yml`.
 - Security & CORS: Document allowed origins and secrets usage.
 - Verification:
-  - Live smoke test: call `/api/query` against deployed backend.
-
-## NON-FUNCTIONAL REQUIREMENTS & ACCEPTANCE CRITERIA
-- The chatbot must return provenance metadata for each answer (doc path + chunk id).
-- The "selected-text only" mode must produce answers strictly sourced from the provided selection (when requested).
-- Sessions must persist in Neon and be retrievable.
-- Ingestion must be idempotent and re-runnable without duplicating vectors.
-- Provide clear roll-back instructions for ingestion.
-
-## DELIVERABLES (place under `specs/002-rag-chatbot/`)
-- `plan.md` (this document)
-- `spec.md` (system spec to be generated next)
-- `tasks.md` (task breakdown for implementation)
-- `api-contract.md` describing endpoints and payloads
-- `deployment.md` describing Docker + hosting steps
-- `.env.example`
-
-## NEXT STEPS
-1. Run `/sp.spec` to transform this plan into a formal spec.
-2. Run `/sp.tasks` to generate atomic tasks.
-3. Run `/sp.implement` or `/sp.code` per task.
+      - Live smoke test: call `/api/query` against deployed backend.
+  
+  ### Ingestion Rollback Strategy (Added T037)
+  
+  If ingestion fails or introduces corrupt data, perform the following steps to rollback:
+  1. **Identify the batch**: If specific files were ingested, identify their filenames.
+  2. **Delete by Filter**: Use Qdrant API to delete points where `payload.source_file` matches the affected files.
+     ```bash
+     curl -X POST "http://localhost:6333/collections/physical_ai_book/points/delete" \
+          -H "Content-Type: application/json" \
+          -d '{ "filter": { "must": [ { "key": "source_file", "match": { "value": "path/to/file.md" } } ] } }'
+     ```
+  3. **Full Reset**: If the entire collection is corrupted, delete and recreate the collection using the Qdrant dashboard or API.
+     ```bash
+     curl -X DELETE "http://localhost:6333/collections/physical_ai_book"
+     # Then re-run ingest.py
+     ```
+  
+  ## NON-FUNCTIONAL REQUIREMENTS & ACCEPTANCE CRITERIA
+  - The chatbot must return provenance metadata for each answer (doc path + chunk id).
+  - The "selected-text only" mode must produce answers strictly sourced from the provided selection (when requested).
+  - Sessions must persist in Neon and be retrievable.
+  - Ingestion must be idempotent and re-runnable without duplicating vectors.
+  - Provide clear roll-back instructions for ingestion.
+  
+  ## DELIVERABLES (place under `specs/002-rag-chatbot/`)
+  - `plan.md` (this document)
+  - `spec.md` (system spec to be generated next)
+  - `tasks.md` (task breakdown for implementation)
+  - `api-contract.md` describing endpoints and payloads
+  - `deployment.md` describing Docker + hosting steps
+  - `.env.example`
+  
+  ## NEXT STEPS
+  1. Run `/sp.spec` to transform this plan into a formal spec.
+  2. Run `/sp.tasks` to generate atomic tasks.
+  3. Run `/sp.implement` or `/sp.code` per task.
