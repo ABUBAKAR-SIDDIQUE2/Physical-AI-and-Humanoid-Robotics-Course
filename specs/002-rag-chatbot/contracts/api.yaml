@@ -1,0 +1,151 @@
+openapi: 3.0.0
+info:
+  title: Physical AI Chatbot API
+  version: 1.0.0
+  description: API for the RAG-based chatbot serving the Physical AI Textbook.
+servers:
+  - url: http://localhost:8000
+    description: Local Development Server
+  - url: https://api.physical-ai-book.com
+    description: Production Server
+paths:
+  /health:
+    get:
+      summary: Health Check
+      responses:
+        '200':
+          description: OK
+  /api/query:
+    post:
+      summary: General RAG Query
+      description: Ask a question to the entire book.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+  /api/select-query:
+    post:
+      summary: Context-Specific Query
+      description: Ask a question about a specific selected text.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectQueryRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+  /api/session/{id}:
+    get:
+      summary: Get Session History
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: Session ID
+      responses:
+        '200':
+          description: Session history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionHistory'
+
+components:
+  schemas:
+    QueryRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          example: "What is ROS 2?"
+        user_id:
+          type: string
+          example: "anon-123"
+        session_id:
+          type: string
+          format: uuid
+        contextual:
+          type: boolean
+          default: false
+        selected_text:
+          type: string
+          nullable: true
+
+    SelectQueryRequest:
+      type: object
+      required:
+        - selected_text
+      properties:
+        selected_text:
+          type: string
+          description: The text user selected in the UI.
+        query:
+          type: string
+          description: Optional follow-up question (default "Explain this")
+        context:
+          type: string
+          description: The surrounding context or page URL.
+        user_id:
+          type: string
+
+    QueryResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+        session_id:
+          type: string
+          format: uuid
+
+    Source:
+      type: object
+      properties:
+        doc:
+          type: string
+        text:
+          type: string
+        score:
+          type: number
+
+    SessionHistory:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+              content:
+                type: string
+              created_at:
+                type: string
+                format: date-time
