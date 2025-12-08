@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://physical-ai-and-humanoid-robotics-course.onrender.com';
+export const API_BASE_URL = 'https://physical-ai-and-humanoid-robotics-course.onrender.com/api';
 
 export interface Citation {
   text: string;
