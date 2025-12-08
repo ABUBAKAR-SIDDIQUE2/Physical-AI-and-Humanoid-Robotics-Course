@@ -13,16 +13,7 @@ load_dotenv()
 app = FastAPI(title="Physical AI Chatbot API")
 
 # CORS Configuration
-# origins = json.loads(os.getenv("CORS_ORIGINS", '["http://localhost:3000"]'))
-
-origins = [
-    "http://localhost",
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173"
-]
+origins = json.loads(os.getenv("CORS_ORIGINS", '["http://localhost:3000"]'))
 
 app.add_middleware(
     CORSMiddleware,
