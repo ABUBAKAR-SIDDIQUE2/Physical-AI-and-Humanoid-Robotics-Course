@@ -1,41 +1,71 @@
-# Website
+# Course Textbook & Chat UI (Frontend)
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This directory contains the source code for the **Physical AI & Humanoid Robotics** textbook website. It is built using [Docusaurus](https://docusaurus.io/), allowing for easy writing of documentation in Markdown/MDX while providing a custom React environment for the AI Chat Widget.
 
-## Installation
+## ✨ Features
 
+*   **Documentation First:** Structured learning paths for physical AI topics.
+*   **Integrated Chatbot:** A persistent chat widget that floats on the UI, allowing students to ask questions about the current page or the entire course.
+*   **Custom React Components:** Interactive elements embedded directly into the learning material.
+
+## 📂 Structure
+
+*   `docs/`: The core course content (Markdown/MDX files).
+*   `src/components/ChatWidget/`: The React code for the floating chat interface.
+*   `src/services/api.ts`: API client connecting to the Python backend.
+*   `docusaurus.config.js`: Main site configuration.
+
+## 🚀 Setup & Installation
+
+### Prerequisites
+*   Node.js version 18 or higher.
+
+### 1. Installation
+Install the project dependencies:
 ```bash
-yarn
+npm install
+# or
+yarn install
 ```
 
-## Local Development
+### 2. Configuration
+The frontend communicates with the backend via the API URL defined in `src/services/api.ts`.
+Ensure the backend is running (default `http://localhost:8000`).
 
+*Note: If deploying, ensure the `API_BASE_URL` in `api.ts` points to your production backend.*
+
+### 3. Local Development
+Start the local development server:
 ```bash
+npm start
+# or
 yarn start
 ```
+The site will open at `http://localhost:3000`.
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## ✍️ Writing Content
 
-## Build
+1.  Create a new file in the `docs/` directory (e.g., `docs/my-new-topic.md`).
+2.  Add frontmatter to the top of the file:
+    ```markdown
+    ---
+    id: my-new-topic
+    title: My New Topic
+    sidebar_label: New Topic
+    ---
+    ```
+3.  Write your content using Markdown.
+4.  The sidebar structure is managed in `sidebars.js`.
 
+## 🚢 Building for Production
+
+To build the static files for deployment:
 ```bash
-yarn build
+npm run build
 ```
+The output will be in the `build/` directory.
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+## 🔧 Chat Widget Configuration
 
-## Deployment
-
-Using SSH:
-
-```bash
-USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+The chat widget is mounted in `src/theme/Root.tsx` (or similar layout wrapper) to ensure it persists across page navigation.
+Key logic resides in `src/components/ChatWidget/ChatPanel.tsx`.
