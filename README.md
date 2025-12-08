@@ -14,8 +14,8 @@ The platform consists of two main components:
 
 ```mermaid
 flowchart LR
-    User[Student] -->|Reads and Chats| FE[Frontend (Docusaurus)]
-    FE -->|API Calls| BE[Backend (FastAPI)]
+    User[Student] -->|Reads and Chats| FE[Frontend - Docusaurus]
+    FE -->|API Calls| BE[Backend - FastAPI]
     
     subgraph Backend_Services
         BE -->|Chat History| PG[(PostgreSQL)]
@@ -26,6 +26,7 @@ flowchart LR
     subgraph Data_Pipeline
         Docs[Course Markdown] -->|Ingestion Script| VDB
     end
+
 ```
 
 ## 🚀 Quick Start
