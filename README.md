@@ -13,17 +13,17 @@ The platform consists of two main components:
 ## 🏗️ Architecture
 
 ```mermaid
-graph LR
-    User[Student] -->|Reads & Chats| FE[Frontend (Docusaurus)]
+flowchart LR
+    User[Student] -->|Reads and Chats| FE[Frontend (Docusaurus)]
     FE -->|API Calls| BE[Backend (FastAPI)]
     
-    subgraph "Backend Services"
+    subgraph Backend_Services
         BE -->|Chat History| PG[(PostgreSQL)]
         BE -->|Vector Search| VDB[(Qdrant)]
         BE -->|LLM Inference| AI[Google Gemini]
     end
     
-    subgraph "Data Pipeline"
+    subgraph Data_Pipeline
         Docs[Course Markdown] -->|Ingestion Script| VDB
     end
 ```
