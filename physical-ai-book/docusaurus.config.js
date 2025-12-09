@@ -34,6 +34,11 @@ const config = {
     locales: ['en'],
   },
 
+  customFields: {
+    API_URL: process.env.API_URL,
+    AUTH_URL: process.env.AUTH_URL,
+  },
+
   markdown: {
     mermaid: true,
   },
@@ -76,6 +81,13 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Textbook',
+          },
+          {
+            type: 'custom',
+            label: 'Auth',
+            position: 'right',
+            className: 'navbar-auth-item', // Custom class for styling
+            component: 'AuthNavbarItem', // Our custom component
           },
           {
             href: 'https://github.com/ABUBAKAR-SIDDIQUE2/Physical-AI-and-Humanoid-Robotics-Course',

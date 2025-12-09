@@ -1,11 +1,12 @@
 from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel, Field
-from typing import List, Optional
-from uuid import UUID, uuid4
+from pydantic import BaseModel
+from typing import List, Optional, Dict, Any
+from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.services.rag_engine import RagEngine
 from app.db.postgres import get_db
 from app.models import ChatSession, ChatMessage
+from app.routers.auth_middleware import get_current_user
 
 router = APIRouter()
 rag_engine = RagEngine()
@@ -28,7 +29,8 @@ class QueryResponse(BaseModel):
 @router.post("/query", response_model=QueryResponse)
 async def chat_query(
     request: QueryRequest,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    user_profile: Optional[Dict[str, Any]] = Depends(get_current_user)
 ):
     try:
         session_id = request.session_id
@@ -52,8 +54,12 @@ async def chat_query(
         )
         db.add(user_message)
 
-        # Call RAG engine
-        rag_response = await rag_engine.query(request.query, request.selected_text)
+        # Call RAG engine with user profile
+        rag_response = await rag_engine.query(
+            request.query, 
+            request.selected_text,
+            user_profile=user_profile
+        )
         
         # Save AI response
         ai_message = ChatMessage(

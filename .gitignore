@@ -18,3 +18,5 @@ Thumbs.db
 
 # Global Secrets (Safety net)
 .env
+
+for-me.md

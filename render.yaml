@@ -1,0 +1,52 @@
+services:
+  - type: web
+    name: auth-service
+    env: node
+    buildCommand: cd auth-service && npm install && npm run build
+    startCommand: cd auth-service && npm run start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: auth-db
+          property: connectionString
+      - key: BETTER_AUTH_SECRET
+        generateValue: true
+      - key: BETTER_AUTH_URL
+        value: https://auth-service.onrender.com # Placeholder, will need update after deploy
+      - key: INTERNAL_SECRET
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: https://physical-ai-book.onrender.com # Placeholder
+
+  - type: web
+    name: chatbot-backend
+    env: python
+    buildCommand: cd chatbot-backend && pip install -r requirements.txt
+    startCommand: cd chatbot-backend && gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: QDRANT_URL
+        sync: false
+      - key: QDRANT_API_KEY
+        sync: false
+      - key: NEON_CONN_STRING
+        sync: false
+      - key: AUTH_SERVICE_URL
+        fromService:
+          type: web
+          name: auth-service
+          property: url
+      - key: INTERNAL_SECRET
+        fromService:
+          type: web
+          name: auth-service
+          envVarKey: INTERNAL_SECRET
+
+databases:
+  - name: auth-db
+    plan: free
+    databaseName: auth
+    user: auth_user
