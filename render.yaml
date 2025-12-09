@@ -12,7 +12,8 @@ services:
       - key: BETTER_AUTH_SECRET
         generateValue: true
       - key: BETTER_AUTH_URL
-        value: https://auth-service.onrender.com # Placeholder, will need update after deploy
+        value: http://${auth-service.host}:${auth-service.port}
+
       - key: INTERNAL_SECRET
         generateValue: true
       - key: ALLOWED_ORIGINS
@@ -35,10 +36,7 @@ services:
       - key: NEON_CONN_STRING
         sync: false
       - key: AUTH_SERVICE_URL
-        fromService:
-          type: web
-          name: auth-service
-          property: url
+        value: http://${auth-service.host}:${auth-service.port}
       - key: INTERNAL_SECRET
         fromService:
           type: web

@@ -83,11 +83,9 @@ const config = {
             label: 'Textbook',
           },
           {
-            type: 'custom',
-            label: 'Auth',
+            to: '/login', // Link to the new login page
+            label: 'Login',
             position: 'right',
-            className: 'navbar-auth-item', // Custom class for styling
-            component: 'AuthNavbarItem', // Our custom component
           },
           {
             href: 'https://github.com/ABUBAKAR-SIDDIQUE2/Physical-AI-and-Humanoid-Robotics-Course',
