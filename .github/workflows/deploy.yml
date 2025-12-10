@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-    # Reviewgh actions might push to other branches, so we limit to main or master
   workflow_dispatch:
 
 permissions:
@@ -20,6 +19,8 @@ jobs:
   build:
     name: Build Docusaurus
     runs-on: ubuntu-latest
+    env:
+      AUTH_URL: ${{ secrets.AUTH_URL }}   # ⭐ ADD THIS
     steps:
       - uses: actions/checkout@v4
         with:
