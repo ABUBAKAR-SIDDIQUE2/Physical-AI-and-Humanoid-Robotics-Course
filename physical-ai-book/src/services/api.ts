@@ -1,19 +1,11 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import siteConfig from '@generated/docusaurus.config';
 import { authClient } from './auth-client';
 
-// Helper to get config outside of React components (not ideal but works for singletons if config is static)
-// Actually, standard Docusaurus pattern for non-component files is problematic.
-// Let's revert to process.env but ensure we use the 'customFields' trick or just hardcode for now 
-// OR simpler: assume the build process defines it globally.
-// 
-// BETTER: Export a function or class that accepts config, or just use the global constant replaced by webpack.
-// For simplicity in this specific setup without ejecting webpack:
-// We will rely on the fact that we added it to customFields, and Docusaurus 
-// tends to inline process.env.API_URL if it's used in config.
-// But better yet, let's keep it simple: Use the hardcoded fallback which is safer for now
-// and trust that `process.env.API_URL` replacement works if `customFields` is set in config.
+// Access config from the generated file since we are not in a React component
+const { API_URL } = siteConfig.customFields as { API_URL?: string };
 
-export const API_BASE_URL = process.env.API_URL || 'http://localhost:8000/api';
+export const API_BASE_URL = API_URL || 'http://localhost:8000/api';
 
 export interface Citation {
   text: string;
