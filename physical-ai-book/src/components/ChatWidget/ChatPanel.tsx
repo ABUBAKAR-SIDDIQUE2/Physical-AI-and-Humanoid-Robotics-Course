@@ -1,6 +1,11 @@
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ChatWidget.module.css';
 import { sendQuery } from '../../services/api';
+
+const { siteConfig } = useDocusaurusContext();
+console.log("API URL (ChatPanel) =", siteConfig.customFields.PUBLIC_API_URL);
+console.log("AUTH URL (ChatPanel) =", siteConfig.customFields.PUBLIC_AUTH_URL);
 
 interface Message {
   role: 'user' | 'ai';

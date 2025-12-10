@@ -4,5 +4,5 @@ import siteConfig from '@generated/docusaurus.config';
 const { PUBLIC_AUTH_URL } = siteConfig.customFields as { PUBLIC_AUTH_URL?: string };
 
 export const authClient = createAuthClient({
-  baseURL: PUBLIC_AUTH_URL || "http://localhost:4000", // Fallback to local auth default
+  baseURL: PUBLIC_AUTH_URL,
 });

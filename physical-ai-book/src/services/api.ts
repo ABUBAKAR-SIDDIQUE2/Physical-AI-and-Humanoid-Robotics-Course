@@ -5,7 +5,7 @@ import { authClient } from './auth-client';
 // Access config from the generated file since we are not in a React component
 const { PUBLIC_API_URL } = siteConfig.customFields as { PUBLIC_API_URL?: string };
 
-export const API_BASE_URL = PUBLIC_API_URL || 'http://localhost:8000/api';
+export const API_BASE_URL = PUBLIC_API_URL;
 
 export interface Citation {
   text: string;
