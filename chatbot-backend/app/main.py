@@ -17,7 +17,7 @@ app = FastAPI(title="Physical AI Chatbot API")
 
 origins = [
     "http://localhost:3000",
-    "https://abubakar-siddique2.github.io",
+    "https://physical-ai-and-humanoid-robotics-c.vercel.app",
     "https://physical-ai-and-humanoid-robotics-course.onrender.com"
 ]
 
