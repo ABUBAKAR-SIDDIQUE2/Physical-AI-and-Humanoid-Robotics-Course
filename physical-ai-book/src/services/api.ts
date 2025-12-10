@@ -3,9 +3,9 @@ import siteConfig from '@generated/docusaurus.config';
 import { authClient } from './auth-client';
 
 // Access config from the generated file since we are not in a React component
-const { API_URL } = siteConfig.customFields as { API_URL?: string };
+const { VITE_API_URL } = siteConfig.customFields as { VITE_API_URL?: string };
 
-export const API_BASE_URL = API_URL || 'http://localhost:8000/api';
+export const API_BASE_URL = VITE_API_URL || 'http://localhost:8000/api';
 
 export interface Citation {
   text: string;
