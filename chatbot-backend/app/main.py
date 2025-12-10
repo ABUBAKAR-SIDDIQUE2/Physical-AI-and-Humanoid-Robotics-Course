@@ -32,6 +32,15 @@ app.add_middleware(
 app.include_router(chat.router, prefix="/api")
 app.include_router(session.router, prefix="/api")
 
+@app.get("/")
+async def root():
+    return {
+        "status": "running",
+        "message": "Physical AI Chatbot Backend",
+        "routes": ["/health", "/api/..."]
+    }
+
+
 @app.get("/health")
 async def health_check():
     return {"status": "ok", "service": "chatbot-backend"}
