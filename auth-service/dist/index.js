@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serve } from "@hono/node-server";
-import { auth } from "./auth";
-import internalRoutes from "./routes/internal";
+import { auth } from "./auth.js";
+import internalRoutes from "./routes/internal.js";
 import dotenv from "dotenv";
 dotenv.config();
 const app = new Hono();
