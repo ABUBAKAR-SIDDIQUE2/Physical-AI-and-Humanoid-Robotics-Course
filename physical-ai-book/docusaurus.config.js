@@ -1,3 +1,4 @@
+require('dotenv').config();
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
@@ -12,7 +13,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://physical-ai-humanoid-robotics-course.vercel.app',
+  url: 'https://physical-ai-and-humanoid-robotics-c.vercel.app/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub Pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -35,8 +36,8 @@ const config = {
   },
 
   customFields: {
-    API_URL: process.env.API_URL,
-    AUTH_URL: process.env.AUTH_URL,
+    API_URL: process.env.PUBLIC_API_URL,
+    AUTH_URL: process.env.PUBLIC_AUTH_URL,
   },
 
   markdown: {
@@ -127,6 +128,25 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+    plugins: [
+    function (context, options) {
+      return {
+        name: 'custom-docusaurus-plugin',
+        configureWebpack(config, isServer) {
+          return {
+            resolve: {
+              fallback: {
+                fs: false,
+                path: false,
+                os: false,
+              },
+            },
+          };
+        },
+      };
+    },
+  ],
 };
 
 module.exports = config;

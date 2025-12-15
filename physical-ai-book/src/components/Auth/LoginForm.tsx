@@ -7,6 +7,7 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState(""); // Added name for sign up
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,11 +15,20 @@ export const LoginForm = () => {
     setError(null);
     try {
       if (isSignUp) {
-        await authClient.signUp.email(email, password);
+        // ERROR FIX: Pass an object, and include 'name' for registration
+        await authClient.signUp.email({
+            email, 
+            password, 
+            name: name || email.split('@')[0] // Fallback name if empty
+        });
       } else {
-        await authClient.signIn.email(email, password);
+        // ERROR FIX: Pass an object
+        await authClient.signIn.email({
+            email, 
+            password
+        });
       }
-      window.location.href = "/"; // Redirect to home on success
+      window.location.href = "/"; 
     } catch (e: any) {
       setError(e.message || "An unexpected error occurred.");
     } finally {
@@ -40,6 +50,22 @@ export const LoginForm = () => {
       </h2>
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
+        
+        {/* Added Name field for Sign Up */}
+        {isSignUp && (
+            <div style={{ marginBottom: '1rem' }}>
+            <label htmlFor="name" style={{ display: 'block', marginBottom: '0.5rem' }}>Name</label>
+            <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required={isSignUp}
+                style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ddd' }}
+            />
+            </div>
+        )}
+
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem' }}>Email</label>
           <input
