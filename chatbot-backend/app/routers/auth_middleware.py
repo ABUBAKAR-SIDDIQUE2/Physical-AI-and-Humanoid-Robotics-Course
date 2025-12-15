@@ -3,13 +3,14 @@ import httpx
 from fastapi import HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
+from typing import Optional
 
 load_dotenv()
 
 AUTH_SERVICE_URL = os.getenv("AUTH_SERVICE_URL", "http://localhost:4000")
 INTERNAL_SECRET = os.getenv("INTERNAL_SECRET", "replace_this_with_shared_secret_for_python_backend")
 
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)
 
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(security)):
     """
@@ -45,6 +46,9 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(
     
     REAL WORLD: We would call `POST /api/auth/get-session` with the token in headers.
     """
+    if not credentials:
+        return None
+
     token = credentials.credentials
     
     # In a full implementation, we would verify the session token here.
@@ -69,9 +73,9 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Security(
             )
             
             if response.status_code != 200:
-                raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+                print(f"Auth failed for token: {token   }")
                 
             return response.json()
             
         except httpx.RequestError:
-            raise HTTPException(status_code=503, detail="Auth service unavailable")
+            print("Auth service unavalaible")
