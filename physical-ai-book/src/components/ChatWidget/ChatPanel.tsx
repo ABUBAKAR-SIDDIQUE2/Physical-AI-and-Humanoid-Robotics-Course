@@ -3,9 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './ChatWidget.module.css';
 import { sendQuery } from '../../services/api';
 
-const { siteConfig } = useDocusaurusContext();
-console.log("API URL (ChatPanel) =", siteConfig.customFields.PUBLIC_API_URL);
-console.log("AUTH URL (ChatPanel) =", siteConfig.customFields.PUBLIC_AUTH_URL);
 
 interface Message {
   role: 'user' | 'ai';
@@ -19,6 +16,9 @@ interface ChatPanelProps {
 }
 
 export const ChatPanel: React.FC<ChatPanelProps> = ({ onClose, selectedText }) => {
+
+  const { siteConfig } = useDocusaurusContext();
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);

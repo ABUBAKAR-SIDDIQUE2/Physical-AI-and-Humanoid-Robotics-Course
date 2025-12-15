@@ -1,4 +1,5 @@
 // @ts
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import React from "react";
 import ChatWidget from "../components/ChatWidget";
 import { OnboardingModal } from "../components/Auth/OnboardingModal";
@@ -8,7 +9,11 @@ export default function Root({ children }: { children: React.ReactNode }) {
     <>
       {children}
       <ChatWidget />
-      <OnboardingModal />
+      <BrowserOnly>
+        {() => 
+        <OnboardingModal />
+        }
+      </BrowserOnly>
     </>
   );
 }

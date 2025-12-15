@@ -10,7 +10,10 @@ export const OnboardingModal = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (session?.user && (!session.user.software_bg || !session.user.hardware_bg)) {
+    // ✅ FIX: Cast user to 'any' to access custom fields without TS errors
+    const user = session?.user as any;
+    
+    if (user && (!user.software_bg || !user.hardware_bg)) {
       setIsOpen(true);
     }
   }, [session]);
@@ -19,15 +22,17 @@ export const OnboardingModal = () => {
     setLoading(true);
     try {
       await authClient.updateUser({
-        image: session?.user?.image, // Required by type, keep existing
-        name: session?.user?.name,   // Required by type, keep existing
-        // @ts-ignore - Custom fields aren't fully typed in the client yet without schema gen
+        image: session?.user?.image,
+        name: session?.user?.name,
+        // ✅ FIX: These comments alone don't fix TS, the 'as any' casting above helps logic,
+        // but for this update call, we might need to suppress the object strictly if the type is rigid.
+        // The cleanest quick fix is to cast the whole object if update() complains:
         software_bg: software,
-        // @ts-ignore
         hardware_bg: hardware,
-      });
+      } as any); 
+      
       setIsOpen(false);
-      window.location.reload(); // Refresh session to get new fields
+      window.location.reload(); 
     } catch (e) {
       console.error(e);
       alert("Failed to update profile");

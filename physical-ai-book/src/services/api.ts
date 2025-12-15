@@ -1,4 +1,3 @@
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import siteConfig from '@generated/docusaurus.config';
 import { authClient } from './auth-client';
 
