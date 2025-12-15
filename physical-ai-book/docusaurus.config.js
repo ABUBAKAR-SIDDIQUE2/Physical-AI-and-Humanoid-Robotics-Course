@@ -36,8 +36,8 @@ const config = {
   },
 
   customFields: {
-    API_URL: process.env.PUBLIC_API_URL,
-    AUTH_URL: process.env.PUBLIC_AUTH_URL,
+    PUBLIC_API_URL: process.env.PUBLIC_API_URL,
+    PUBLIC_AUTH_URL: process.env.PUBLIC_AUTH_URL,
   },
 
   markdown: {
