@@ -45,7 +45,7 @@ export async function sendQuery(request: ChatRequest): Promise<ChatResponse> {
     headers['Authorization'] = `Bearer ${session.data.user.id}`; // Passing User ID as "token" based on middleware mock assumption
   }
 
-  const response = await fetch(`${API_BASE_URL}/query`, {
+  const response = await fetch(`${API_BASE_URL}/api/query`, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify(request),
