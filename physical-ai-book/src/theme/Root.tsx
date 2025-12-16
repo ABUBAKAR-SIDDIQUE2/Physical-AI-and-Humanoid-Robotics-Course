@@ -1,8 +1,20 @@
 // @ts
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import React from "react";
+import React, { useEffect } from "react";
 import ChatWidget from "../components/ChatWidget";
 import { OnboardingModal } from "../components/Auth/OnboardingModal";
+import { authClient } from '../services/auth-client';
+
+const SessionLogger = () => {
+  const { data: session, error } = authClient.useSession();
+  
+  useEffect(() => {
+    console.log("Current Session:", session);
+    if (error) console.error("Session Error:", error);
+  }, [session, error]);
+
+  return null;
+};
 
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
@@ -10,9 +22,12 @@ export default function Root({ children }: { children: React.ReactNode }) {
       {children}
       <ChatWidget />
       <BrowserOnly>
-        {() => 
-        <OnboardingModal />
-        }
+        {() => (
+          <>
+            <SessionLogger />
+            <OnboardingModal />
+          </>
+        )}
       </BrowserOnly>
     </>
   );

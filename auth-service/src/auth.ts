@@ -18,6 +18,9 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  advanced: {
+    cookiePrefix: "physical-ai-auth",
+  },
   trustedOrigins: process.env.ALLOWED_ORIGINS 
     ? process.env.ALLOWED_ORIGINS.split(",") 
     : ["http://localhost:3000"],

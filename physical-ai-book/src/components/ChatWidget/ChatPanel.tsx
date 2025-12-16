@@ -1,8 +1,7 @@
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ChatWidget.module.css';
 import { sendQuery } from '../../services/api';
-
+import { authClient } from '../../services/auth-client';
 
 interface Message {
   role: 'user' | 'ai';
@@ -16,13 +15,11 @@ interface ChatPanelProps {
 }
 
 export const ChatPanel: React.FC<ChatPanelProps> = ({ onClose, selectedText }) => {
-
-  const { siteConfig } = useDocusaurusContext();
-
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const { data: session } = authClient.useSession();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -76,7 +73,9 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ onClose, selectedText }) =
       <div className={styles.messages}>
         {messages.length === 0 && (
           <div style={{ textAlign: 'center', color: 'var(--ifm-color-emphasis-600)', marginTop: '20px' }}>
-            Hello! Ask me anything about the book content.
+            {session?.user?.name 
+              ? `Hello, ${session.user.name}! How can I help you today?`
+              : "Hello! Ask me anything about the book content."}
           </div>
         )}
         {messages.map((msg, idx) => (
