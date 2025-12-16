@@ -18,7 +18,7 @@ app = FastAPI(title="Physical AI Chatbot API")
 origins = [
     "http://localhost:3000",
     "https://physical-ai-and-humanoid-robotics-c.vercel.app",
-    "https://physical-ai-and-humanoid-robotics-course.onrender.com"
+    "https://chatbot-backend-v2-05c7.onrender.com"
 ]
 
 app.add_middleware(
